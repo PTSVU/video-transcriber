@@ -1,0 +1,28 @@
+.file-input {
+  display: none;
+}
+
+.input-label {
+  cursor: pointer;
+  color: #007bff;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.input-group {
+  display: flex;
+  column-gap: 1rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.input-main {
+  padding: 0.5rem;
+}
+
+.select-file {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 0;
+}

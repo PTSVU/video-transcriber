@@ -16,7 +16,6 @@ import FormLabel from '@mui/material/FormLabel';
 import GeneratedText from '../generated-text/generated-text';
 import TypingEffect from '../typing-effect/typing-effect';
 import Loading from '../loading/loading';
-import Checkbox from '@mui/material/Checkbox';
 
 export default function Main() {
   const [isFileValid, setIsFileValid] = useState(false);
@@ -24,13 +23,10 @@ export default function Main() {
   const [loading, setLoading] = useState(false);
   const [resultText, setResultText] = useState(null);
   const [selectedModel, setSelectedModel] = useState('base');
-  const [summ, setSumm] = useState(true);
 
   const phrases = [
     "Привет, мир!",
-    "Video-Transcriber для удобной сводки информации",
-    "Если нужно получить краткую информацию из видеоматериала",
-    "Три типа суммаризации информации 🤩"
+    "Video-Transcriber для транскрипции из видео",
   ];
 
   const handleFileValidation = (isValid) => {
@@ -46,10 +42,6 @@ export default function Main() {
     setSelectedModel(event.target.value);
   };
 
-  const handleSummChange = (event) => {
-    setSumm(event.target.checked);
-  };
-
   const handleSendChange = () => {
     if (!selectedFile) return;
 
@@ -58,7 +50,6 @@ export default function Main() {
     const formData = new FormData();
     formData.append('file', selectedFile);
     formData.append('model', selectedModel);
-    formData.append('summarization', summ);
 
     fetch('http://localhost:7777/api/transcribe/', {
       method: 'POST',
@@ -102,20 +93,6 @@ export default function Main() {
 
         {!resultText && selectedFile && (
             <>
-              <FormControlLabel
-                  control={
-                    <Checkbox  defaultChecked
-                               title='Означает, что информация из файла будет сжата и представлена в сокращённом виде'
-                               sx={{ '& .MuiSvgIcon-root': { fontSize: 28 } } }
-                               style={{padding: "0"}}
-                               onChange={handleSummChange}
-                               name="jason"
-                    />
-                  }
-                  label="Суммаризировать текст?"
-              />
-
-
               <div className="radio-group">
                 <FormControl>
                   <FormLabel id="model-selection-label" style={{color: "White", marginTop: "1rem"}}>

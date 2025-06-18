@@ -65,13 +65,13 @@ lang_map = {
 }
 
 
-def translate(text, src_lang, tgt_lang):
+def translate(text, src_lang, tgt_lang, max_length=2048):
     mbart_tokenizer.src_lang = src_lang
-    inputs = mbart_tokenizer(text, return_tensors="pt", max_length=2048, truncation=True).to(device)
+    inputs = mbart_tokenizer(text, return_tensors="pt", max_length=max_length, truncation=True).to(device)
     with torch.no_grad():
         generated_tokens = mbart_model.generate(
             **inputs,
             forced_bos_token_id=mbart_tokenizer.lang_code_to_id[tgt_lang],
-            max_length=2048
+            max_length=max_length
         )
     return mbart_tokenizer.decode(generated_tokens[0], skip_special_tokens=True)

@@ -1,5 +1,6 @@
 import torch
 from accelerate import Accelerator
+from langdetect import detect
 from transformers import MBart50TokenizerFast, MBartForConditionalGeneration
 
 accelerator = Accelerator()
@@ -66,6 +67,11 @@ lang_map = {
 
 
 def translate(text, src_lang, tgt_lang, max_length=2048):
+    tgt_lang = lang_map.get(tgt_lang, "en_XX")
+    if src_lang == "auto":
+        src_lang = detect(text)
+        src_lang = lang_map.get(src_lang, "en_XX")
+    print(f"src_lang: {src_lang}, tgt_lang: {tgt_lang}")
     mbart_tokenizer.src_lang = src_lang
     inputs = mbart_tokenizer(text, return_tensors="pt", max_length=max_length, truncation=True).to(device)
     with torch.no_grad():

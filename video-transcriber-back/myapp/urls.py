@@ -2,5 +2,5 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('api/transcribe/', views.transcribe_view, name='transcribe'),
+path('api/translate/', views.translate_view, name='translate'),
 ]

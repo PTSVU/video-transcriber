@@ -80,7 +80,7 @@ export default function Main() {
         <div className="figure-3"></div>
 
         <div className="text-preview">
-          Video-Transcriber - краткая и информативная выжимка из видео
+          Video-Transcriber - транскрипция видео
         </div>
 
         {!resultText && (
